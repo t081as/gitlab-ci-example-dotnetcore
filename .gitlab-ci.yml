@@ -31,4 +31,4 @@ release:
 debug:
   stage: test
   script:
-    - dotnet test
+    - dotnet test MyProject.Test/MyProject.Test.csproj
