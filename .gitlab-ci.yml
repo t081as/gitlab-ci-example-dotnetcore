@@ -1,0 +1,34 @@
+# This is a simple gitlab continuous integration example project (compatible with the shared runner provided on gitlab.com)
+# using the official debian linux based dotnet docker image to build a .NET Core project.
+#
+# MyProject.sln
+#   MyProject\
+#      MyProject.csproj (console application)
+#   MyProject.Test\
+#      MyProject.Test.csproj (test library)
+#
+# Please find the full example project here:
+# https://gitlab.com/tobiaskoch/gitlab-ci-example-dotnetcore
+
+# see https://hub.docker.com/r/microsoft/dotnet/
+image: microsoft/dotnet:latest
+
+stages:
+  - test
+  - deploy
+
+release:
+  stage: deploy
+  only:
+    - master
+  artifacts:
+    paths:
+      - publish/
+  script:
+    # The output path is relative to the position of the csproj-file
+    - dotnet publish -c Release -o ../publish MyProject/MyProject.csproj
+    
+debug:
+  stage: test
+  script:
+    - dotnet test
