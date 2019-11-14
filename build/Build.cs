@@ -89,6 +89,10 @@ class Build : NukeBuild
                 .SetAssemblyVersion(version)
                 .SetFileVersion(version)
                 .EnableNoRestore());
+
+            CopyFile(RootDirectory / "AUTHORS.txt", OutputDirectory / "AUTHORS.txt");
+            CopyFile(RootDirectory / "CHANGELOG.md", OutputDirectory / "CHANGELOG.txt");
+            CopyFile(RootDirectory / "LICENSE.md", OutputDirectory / "LICENSE.txt");
         });
 
     Target Pack => _ => _
@@ -100,10 +104,6 @@ class Build : NukeBuild
                 RootDirectory.GlobFiles("*.zip").ForEach(DeleteFile);
                 OutputDirectory.GlobFiles("*.dev.*").ForEach(DeleteFile);
                 DeleteFile(OutputDirectory / "DiabLaunch.xml"); // Remove source code documentation xml
-
-                CopyFile(RootDirectory / "AUTHORS.txt", OutputDirectory / "AUTHORS.txt");
-                CopyFile(RootDirectory / "CHANGELOG.md", OutputDirectory / "CHANGELOG.txt");
-                CopyFile(RootDirectory / "LICENSE.md", OutputDirectory / "LICENSE.txt");
 
                 CompressionTasks.CompressZip(OutputDirectory, RootDirectory / $"DiabLaunch-{shortVersion}-win32-x64.zip", null, System.IO.Compression.CompressionLevel.Optimal, System.IO.FileMode.CreateNew);
             }
