@@ -71,6 +71,7 @@ class Build : NukeBuild
                 Logger.Info($"Version: {version}");
                 Logger.Info($"Short Version: {shortVersion}");
                 Logger.Info($"Semantic Version: {semanticVersion}");
+                Logger.Info($"Buildnumber: {Buildnumber}");
             }
             else
             {
