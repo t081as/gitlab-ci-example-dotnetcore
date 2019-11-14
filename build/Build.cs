@@ -103,6 +103,7 @@ class Build : NukeBuild
 
                 CopyFile(RootDirectory / "AUTHORS.txt", OutputDirectory / "AUTHORS.txt");
                 CopyFile(RootDirectory / "CHANGELOG.md", OutputDirectory / "CHANGELOG.txt");
+                CopyFile(RootDirectory / "LICENSE.md", OutputDirectory / "LICENSE.txt");
 
                 CompressionTasks.CompressZip(OutputDirectory, RootDirectory / $"DiabLaunch-{shortVersion}-win32-x64.zip", null, System.IO.Compression.CompressionLevel.Optimal, System.IO.FileMode.CreateNew);
             }
