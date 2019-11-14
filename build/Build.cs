@@ -55,15 +55,21 @@ class Build : NukeBuild
 
     Target Pack => _ => _
         .DependsOn(Compile)
-        .Requires(() => Configuration == Configuration.Release)
         .Executes(() =>
         {
-            RootDirectory.GlobFiles("*.zip").ForEach(DeleteFile);
-            OutputDirectory.GlobFiles("*.dev.*").ForEach(DeleteFile);
+            if (Configuration == Configuration.Release)
+            {
+                RootDirectory.GlobFiles("*.zip").ForEach(DeleteFile);
+                OutputDirectory.GlobFiles("*.dev.*").ForEach(DeleteFile);
 
-            CopyFile(RootDirectory / "AUTHORS.txt", OutputDirectory / "AUTHORS.txt");
-            CopyFile(RootDirectory / "CHANGELOG.md", OutputDirectory / "CHANGELOG.txt");
+                CopyFile(RootDirectory / "AUTHORS.txt", OutputDirectory / "AUTHORS.txt");
+                CopyFile(RootDirectory / "CHANGELOG.md", OutputDirectory / "CHANGELOG.txt");
 
-            CompressionTasks.CompressZip(OutputDirectory, RootDirectory / "DiabLaunch-VERSION-win32-anycpu.zip", null, System.IO.Compression.CompressionLevel.Optimal, System.IO.FileMode.CreateNew);
+                CompressionTasks.CompressZip(OutputDirectory, RootDirectory / "DiabLaunch-VERSION-win32-anycpu.zip", null, System.IO.Compression.CompressionLevel.Optimal, System.IO.FileMode.CreateNew);
+            }
+            else
+            {
+                Logger.Info("Debug build - skipping pack");
+            }
         });
 }
