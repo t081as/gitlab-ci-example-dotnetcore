@@ -10,7 +10,7 @@ release:
         paths:
           - ./*.zip
     script:
-        - ./build --configuration Release
+        - ./build --configuration Release --buildnumber $CI_PIPELINE_IID
 debug:
     stage: build
     script:
