@@ -79,17 +79,16 @@ class Build : NukeBuild
         });
 
     Target Compile => _ => _
-        .DependsOn(Restore)
-        .DependsOn(Version)
+        .DependsOn(Restore, Version)
         .Executes(() =>
         {
             DotNetBuild(_ => _
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(OutputDirectory)
-                .SetVersion(shortVersion)
+                .SetVersion(semanticVersion)
                 .SetAssemblyVersion(version)
-                .SetFileVersion(semanticVersion)
+                .SetFileVersion(version)
                 .EnableNoRestore());
         });
 
