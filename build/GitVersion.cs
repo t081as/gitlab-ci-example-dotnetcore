@@ -11,7 +11,7 @@ class GitVersion
     {
         (ulong major, ulong minor, ulong revision, ulong commits, string shasum) = Get(repositoryPath);
 
-        string label = string.Empty;
+        string label;
 
         if (commits == 0)
         {

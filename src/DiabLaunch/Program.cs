@@ -47,7 +47,7 @@ namespace DiabLaunch
                 return;
             }
 
-            Diablo2 diabloGame = null;
+            Diablo2 diabloGame;
 
             try
             {

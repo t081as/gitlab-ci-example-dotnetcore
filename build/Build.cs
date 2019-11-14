@@ -27,8 +27,6 @@ class Build : NukeBuild
     [Solution]
     readonly Solution Solution;
 
-    AbsolutePath SourceDirectory => RootDirectory / "src";
-
     AbsolutePath OutputDirectory => RootDirectory / "output";
 
     string shortVersion = "0.0.0";
