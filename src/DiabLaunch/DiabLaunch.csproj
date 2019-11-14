@@ -6,10 +6,14 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationManifest>App.manifest</ApplicationManifest>
     <ApplicationIcon>DiabLaunch.ico</ApplicationIcon>
+    <StartupObject>DiabLaunch.Program</StartupObject>
   </PropertyGroup>
 
   <PropertyGroup>
     <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
-  </PropertyGroup> 
+  </PropertyGroup>
+  
+  <Import Project="..\AssemblyInfo.props" />
+  <Import Project="..\Version.props" />
 
 </Project>
