@@ -41,7 +41,7 @@ Get the source code using the following command:
 #### Build
     > ./build.ps1 --configuration Release
 
-The application will be located in the directory *./output* if the build succeeds.
+The application will be located in the directory *./output* if the build succeeds. A zip package will be created in the root directory of the repository.
 
 ## Contributing
 see [CONTRIBUTING.md](https://gitlab.com/tobiaskoch/DiabLaunch/blob/master/CONTRIBUTING.md)
