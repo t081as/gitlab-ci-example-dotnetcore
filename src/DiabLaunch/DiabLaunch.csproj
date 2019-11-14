@@ -7,11 +7,16 @@
     <ApplicationManifest>App.manifest</ApplicationManifest>
     <ApplicationIcon>DiabLaunch.ico</ApplicationIcon>
     <StartupObject>DiabLaunch.Program</StartupObject>
+    <WarningsAsErrors />
   </PropertyGroup>
 
   <PropertyGroup>
     <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="..\DiabLaunch.ruleset" Link="DiabLaunch.ruleset" />
+  </ItemGroup>
   
   <Import Project="..\AssemblyInfo.props" />
   <Import Project="..\Version.props" />

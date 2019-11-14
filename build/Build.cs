@@ -21,11 +21,19 @@ class Build : NukeBuild
     [Parameter("Configuration to build")]
     readonly Configuration Configuration = Configuration.Debug;
 
-    [Solution] readonly Solution Solution;
+    [Parameter("The build number provided by the continuous integration system")]
+    readonly ulong Buildnumber = 0;
+
+    [Solution]
+    readonly Solution Solution;
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
 
     AbsolutePath OutputDirectory => RootDirectory / "output";
+
+    string shortVersion = "0.0.0";
+    string version = "0.0.0.0";
+    string semanticVersion = "0.0.0+XXXXXXXX";
 
     Target Clean => _ => _
         .Executes(() =>
@@ -42,14 +50,46 @@ class Build : NukeBuild
                 .SetProjectFile(Solution));
         });
 
+    Target Version => _ => _
+        .Executes(() =>
+        {
+            if (Configuration == Configuration.Release)
+            {
+                try
+                {
+                    (string shortVersion, string version, string semanticVersion) = GitVersion.Get(RootDirectory, Buildnumber);
+
+                    this.shortVersion = shortVersion;
+                    this.version = version;
+                    this.semanticVersion = semanticVersion;
+                }
+                catch
+                {
+                    Logger.Info("Ignoring version detection problems");
+                }
+
+                Logger.Info($"Version: {version}");
+                Logger.Info($"Short Version: {shortVersion}");
+                Logger.Info($"Semantic Version: {semanticVersion}");
+            }
+            else
+            {
+                Logger.Info("Debug build - skipping version");
+            }
+        });
+
     Target Compile => _ => _
         .DependsOn(Restore)
+        .DependsOn(Version)
         .Executes(() =>
         {
             DotNetBuild(_ => _
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(OutputDirectory)
+                .SetVersion(shortVersion)
+                .SetAssemblyVersion(version)
+                .SetFileVersion(semanticVersion)
                 .EnableNoRestore());
         });
 
@@ -65,7 +105,7 @@ class Build : NukeBuild
                 CopyFile(RootDirectory / "AUTHORS.txt", OutputDirectory / "AUTHORS.txt");
                 CopyFile(RootDirectory / "CHANGELOG.md", OutputDirectory / "CHANGELOG.txt");
 
-                CompressionTasks.CompressZip(OutputDirectory, RootDirectory / "DiabLaunch-VERSION-win32-anycpu.zip", null, System.IO.Compression.CompressionLevel.Optimal, System.IO.FileMode.CreateNew);
+                CompressionTasks.CompressZip(OutputDirectory, RootDirectory / $"DiabLaunch-{shortVersion}-win32-anycpu.zip", null, System.IO.Compression.CompressionLevel.Optimal, System.IO.FileMode.CreateNew);
             }
             else
             {
