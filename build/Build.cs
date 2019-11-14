@@ -99,6 +99,7 @@ class Build : NukeBuild
             {
                 RootDirectory.GlobFiles("*.zip").ForEach(DeleteFile);
                 OutputDirectory.GlobFiles("*.dev.*").ForEach(DeleteFile);
+                DeleteFile(OutputDirectory / "DiabLaunch.xml"); // Remove source code documentation xml
 
                 CopyFile(RootDirectory / "AUTHORS.txt", OutputDirectory / "AUTHORS.txt");
                 CopyFile(RootDirectory / "CHANGELOG.md", OutputDirectory / "CHANGELOG.txt");
