@@ -7,15 +7,29 @@
     <ApplicationManifest>App.manifest</ApplicationManifest>
     <ApplicationIcon>DiabLaunch.ico</ApplicationIcon>
     <StartupObject>DiabLaunch.Program</StartupObject>
-    <WarningsAsErrors />
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>..\DiabLaunch.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\DiabLaunch.xml</DocumentationFile>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugType>None</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   
   <ItemGroup>
     <None Include="..\DiabLaunch.ruleset" Link="DiabLaunch.ruleset" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   
   <Import Project="..\AssemblyInfo.props" />
