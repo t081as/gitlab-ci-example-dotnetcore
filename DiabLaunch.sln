@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiabLaunch", "src\DiabLaunch\DiabLaunch.csproj", "{C882598B-5139-4BBD-BAD9-793D54349A71}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Build", "build\Build.csproj", "{F8C24F01-3283-4125-B734-37F3B375D417}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8C24F01-3283-4125-B734-37F3B375D417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8C24F01-3283-4125-B734-37F3B375D417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C882598B-5139-4BBD-BAD9-793D54349A71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C882598B-5139-4BBD-BAD9-793D54349A71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C882598B-5139-4BBD-BAD9-793D54349A71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C882598B-5139-4BBD-BAD9-793D54349A71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F2757A69-7A74-4DB7-ABB8-43278668144A}
+	EndGlobalSection
+EndGlobal
