@@ -24,7 +24,7 @@ DiabLaunch executes Diablo 2 in windowed mode, removes the window border and set
 * The Diablo 2 installation path is detected automatically using the [Windows Registry](https://en.wikipedia.org/wiki/Windows_Registry) (if this does not work on your system just copy the application into your Diablo 2 directory)
 
 ### Option 0: Binaries
-Binary packages are available [here](https://gitlab.com/tobiaskoch/DiabLaunch/-/tags).
+Binary packages are available here: [https://gitlab.com/tobiaskoch/DiabLaunch/releases](https://gitlab.com/tobiaskoch/DiabLaunch/releases)
 
 ### Option 1: Source
 #### Requirements
