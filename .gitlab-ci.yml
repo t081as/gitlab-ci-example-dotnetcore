@@ -1,0 +1,17 @@
+stages:
+    - build
+
+release:
+    stage: build
+    only:
+        - tags
+    artifacts:
+        name: "${CI_PROJECT_NAME}-${CI_COMMIT_TAG}"
+        paths:
+          - ./*.zip
+    script:
+        - ./build --configuration Release
+debug:
+    stage: build
+    script:
+        - ./build
