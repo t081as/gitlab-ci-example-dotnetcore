@@ -216,3 +216,6 @@ StyleCop.Cache
 # Nuke build
 .tmp/
 output/
+
+# Packages
+*.zip
