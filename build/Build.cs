@@ -103,6 +103,7 @@ class Build : NukeBuild
             {
                 RootDirectory.GlobFiles("*.zip").ForEach(DeleteFile);
                 OutputDirectory.GlobFiles("*.dev.*").ForEach(DeleteFile);
+                OutputDirectory.GlobFiles("*.deps.json").ForEach(DeleteFile); // If there are any dependencies they will be shipped
                 DeleteFile(OutputDirectory / "DiabLaunch.xml"); // Remove source code documentation xml
 
                 CompressionTasks.CompressZip(OutputDirectory, RootDirectory / $"DiabLaunch-{shortVersion}-win32-x64.zip", null, System.IO.Compression.CompressionLevel.Optimal, System.IO.FileMode.CreateNew);
