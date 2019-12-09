@@ -31,4 +31,8 @@ release:
 debug:
   stage: test
   script:
-    - dotnet test
+    - dotnet test --logger "junit"
+  artifacts:
+    reports:
+      junit:
+        - '*.Test/TestResults/TestResults.xml'
