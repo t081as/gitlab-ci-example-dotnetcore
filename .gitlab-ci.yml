@@ -11,7 +11,9 @@
 # https://gitlab.com/tobiaskoch/gitlab-ci-example-dotnetcore
 
 # see https://hub.docker.com/r/microsoft/dotnet/
-image: microsoft/dotnet:latest
+image: mcr.microsoft.com/dotnet/core/sdk:2.2.301
+
+
 
 stages:
   - test
@@ -29,6 +31,81 @@ release:
     - dotnet publish -c Release -o ../publish MyProject/MyProject.csproj
     
 debug:
+  before_script:
+   - 'echo | dotnet --version' # must be v 2.2.300 or later for reporter tool to work
+   - dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
   stage: test
   script:
-    - dotnet test
+    - dotnet test --logger "junit" --collect:"XPlat Code Coverage"
+    # each reporttype must be a separate line, doesn't work together ; separated
+    - ls -ld ${CI_PROJECT_DIR}/**/TestResults/*
+    - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/**/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:TextSummary;
+    - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/**/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:Html;
+    - ls Reports_Coverage
+    - cat ./Reports_Coverage/Summary.txt
+    - echo 'End Summary'
+  coverage: /Line coverage[\s\S].+%/
+  artifacts:
+    paths:
+      - Reports_Coverage/
+    reports:
+      junit:
+        - '*.Test/TestResults/TestResults.xml'
+
+# takes upwards of 10 minutes, make manual
+code_quality:
+  stage: test
+  when: manual
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay
+  services:
+    - docker:dind
+  script:
+    - docker pull codeclimate/codeclimate
+    - docker run 
+       --env CODECLIMATE_DEBUG=1 
+       --env CODECLIMATE_CODE="$PWD" 
+       --volume "$PWD":/code 
+       --volume /var/run/docker.sock:/var/run/docker.sock 
+       --volume /tmp/cc:/tmp/cc 
+       codeclimate/codeclimate:0.85.2 analyze -f html > report.html
+    #- cat report.html
+
+  artifacts:
+    paths: [report.html]
+  dependencies: []
+  except:
+    variables:
+      - $CODE_QUALITY_DISABLED
+
+# takes upwards of 1hr will need to increase ci/cd max time maybe 4hrs, should use DotSettings file to exclude lib files
+resharper_inspect:
+  when: manual
+  stage: test
+  script:
+    - dotnet restore
+    - apt update && apt install -y curl zip unzip
+    - curl -LO "https://download.jetbrains.com/resharper/ReSharperUltimate.2019.2.3/JetBrains.ReSharper.CommandLineTools.Unix.2019.2.3.zip"
+    - unzip JetBrains.ReSharper.CommandLineTools.Unix.2019.2.3.zip -d "resharper"
+    - mkdir -p Reports_Resharper
+    - files=(*.sln)
+    - sh resharper/inspectcode.sh "${files[0]}" --output=Reports_Resharper/InspectResults.html --format=Html
+  artifacts:
+    paths:
+      - Reports_Resharper/
+      
+# only takes 1 minute to run
+resharper_dup:
+  stage: test
+  script:
+    - dotnet restore
+    - apt update && apt install -y curl zip unzip
+    - curl -LO "https://download.jetbrains.com/resharper/ReSharperUltimate.2019.2.3/JetBrains.ReSharper.CommandLineTools.Unix.2019.2.3.zip"
+    - unzip JetBrains.ReSharper.CommandLineTools.Unix.2019.2.3.zip -d "resharper"
+    - mkdir -p Reports_Resharper
+    - files=(*.sln)
+    - sh resharper/dupfinder.sh "${files[0]}" --output=Reports_Resharper/DupResults.html --format=Html
+  artifacts:
+    paths:
+      - Reports_Resharper/
