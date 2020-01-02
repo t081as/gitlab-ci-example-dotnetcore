@@ -21,4 +21,4 @@ see [CONTRIBUTING.md](https://gitlab.com/tobiaskoch/gitlab-ci-example-dotnetcore
 Thanks for your interest in this project. You can show your appreciation and support further development by [donating](https://www.tk-software.de/donate).
 
 ## License
-**gitlab-ci-example-dotnetcore** © 2018-2019  Tobias Koch. Released under the [MIT License](https://gitlab.com/tobiaskoch/gitlab-ci-example-dotnetcore/blob/master/LICENSE.md).
+**gitlab-ci-example-dotnetcore** © 2018-2020  Tobias Koch. Released under the [MIT License](https://gitlab.com/tobiaskoch/gitlab-ci-example-dotnetcore/blob/master/LICENSE.md).
