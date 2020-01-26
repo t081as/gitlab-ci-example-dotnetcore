@@ -6,7 +6,7 @@
 
 ---
 
-This is a simple [gitlab continuous integration](https://about.gitlab.com/features/gitlab-ci-cd/) example project (compatible with the [shared runner](https://docs.gitlab.com/runner/) provided on [gitlab.com](https://gitlab.com)) using the official debian linux based [dotnet docker image](https://hub.docker.com/r/microsoft/dotnet/) to build a .NET Core project.
+This is a simple [gitlab continuous integration](https://about.gitlab.com/features/gitlab-ci-cd/) example project (compatible with the [linux-based shared runners](https://docs.gitlab.com/runner/) provided on [gitlab.com](https://gitlab.com)) using the official debian linux based [dotnet docker image](https://hub.docker.com/r/microsoft/dotnet/) to build a .NET Core project.
 
 Thanks to the [Tango Desktop Project](http://tango.freedesktop.org) for the repository icon.
 
