@@ -14,7 +14,7 @@ Thanks to the [Tango Desktop Project](http://tango.freedesktop.org) for the repo
 see [CONTRIBUTING.md](https://gitlab.com/tobiaskoch/gitlab-ci-example-dotnetcore/blob/master/CONTRIBUTING.md)
 
 ## Contributors
-- [v1](https://gitlab.com/tobiaskoch/gitlab-ci-example-dotnetcore/tree/v1): intial version by [Tobias Koch](https://gitlab.com/tobiaskoch)
+- [v1](https://gitlab.com/tobiaskoch/gitlab-ci-example-dotnetcore/tree/v1): initial version by [Tobias Koch](https://gitlab.com/tobiaskoch)
 - [v2](https://gitlab.com/tobiaskoch/gitlab-ci-example-dotnetcore/tree/v2): unit test summary, code coverage analysis and code climate report by [lastlink](https://gitlab.com/lastlink)
 
 ## Donating
